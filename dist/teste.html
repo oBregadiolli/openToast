@@ -1,0 +1,32 @@
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var input = document.getElementById('quotationMultiplier');
+
+    input.addEventListener('input', function() {
+        // Permite apenas números e ponto, removendo outros caracteres
+        var value = input.value.replace(/[^0-9.]/g, '');
+        // Limita a duas casas decimais
+        var match = value.match(/^-?\d*(\.\d{0,2})?/);
+        var formatted = match ? match[0] : '';
+
+        // Adiciona o símbolo de porcentagem sem duplicar
+        input.value = formatted + '%';
+    });
+
+    input.addEventListener('blur', function() {
+        // Remove o sinal de porcentagem antes de perder o foco para evitar confusão
+        input.value = input.value.replace('%', '');
+    });
+
+    input.addEventListener('focus', function() {
+        // Reaplica o sinal de porcentagem ao ganhar foco
+        if (!input.value.includes('%')) {
+            input.value += '%';
+        }
+    });
+});
+</script>
+</head>
+<body>
+    <input type="text" id="quotationMultiplier" placeholder="Enter a value..." onfocus="this.select()">
+</body>
